@@ -1,0 +1,95 @@
+/**
+ *    Simple OIDC SSO
+ *    Version 1.0.0
+ *
+ *    A lightweight WordPress plugin for quick and easy OpenID Connect authentication.
+ *    Designed specifically for Keycloak identity provider.
+ *    Simple setup, automatic user sync, and secure token handling.
+ *
+ *    Documentation: https://github.com/disisto/simple-keycloak-oidc-sso-for-wordpress
+ *
+ *
+ *    Licensed under GPL v2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ *
+ *    Copyright (c) 2025 Roberto Di Sisto
+ *
+ *    This program is free software; you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation; either version 2 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *    GNU General Public License for more details.
+ **/
+
+/**
+ * Login Page Styles
+ * CSP-compliant external stylesheet
+ */
+
+/* SSO Button Container - positioned between logo and login form */
+#oidc-sso-wrapper {
+    background: #fff;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    margin: 0 auto 20px auto;
+    width: 320px;
+    box-sizing: border-box;
+}
+
+.oidc-sso-button {
+    margin: 0 !important;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.oidc-sso-button .button {
+    min-width: 280px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none !important;
+    font-size: 16px;
+    line-height: 1.4;
+    padding: 8px 12px;
+}
+
+.oidc-sso-button .dashicons {
+    font-size: 16px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* Separator between SSO and standard login */
+.oidc-separator {
+    margin: 20px 80px;
+    text-align: center;
+    position: relative;
+    max-width: 320px;
+}
+
+.oidc-separator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #dcdcde;
+}
+
+.oidc-separator span {
+    background: #f0f0f1;
+    padding: 0 12px;
+    color: #787c82;
+    font-size: 13px;
+    position: relative;
+}
+
+/* OIDC Only Mode - hide standard login form */
+body.oidc-only-mode #loginform,
+body.oidc-only-mode .oidc-separator {
+    display: none !important;
+}

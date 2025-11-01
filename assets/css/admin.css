@@ -1,0 +1,239 @@
+/**
+ *    Simple OIDC SSO
+ *    Version 1.0.0
+ *
+ *    A lightweight WordPress plugin for quick and easy OpenID Connect authentication.
+ *    Designed specifically for Keycloak identity provider.
+ *    Simple setup, automatic user sync, and secure token handling.
+ *
+ *    Documentation: https://github.com/disisto/simple-keycloak-oidc-sso-for-wordpress
+ *
+ *
+ *    Licensed under GPL v2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ *
+ *    Copyright (c) 2025 Roberto Di Sisto
+ *
+ *    This program is free software; you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation; either version 2 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *    GNU General Public License for more details.
+ **/
+
+/**
+ * Admin Page Styles
+ * CSP-compliant external stylesheet
+ */
+
+.oidc-admin-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccd0d4;
+}
+
+.oidc-admin-header .dashicons {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: #2271b1;
+}
+
+.oidc-admin-header h1 {
+    margin: 0;
+    font-size: 23px;
+}
+
+.oidc-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+    margin-bottom: 20px;
+}
+
+.oidc-card-header {
+    background: #f6f7f7;
+    border-bottom: 1px solid #c3c4c7;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.oidc-card-header .dashicons {
+    color: #2271b1;
+}
+
+.oidc-card-body {
+    padding: 20px;
+}
+
+.oidc-test-results {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.oidc-test-result-item {
+    padding: 12px 20px;
+    border-bottom: 1px solid #f0f0f1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.oidc-test-result-item:last-child {
+    border-bottom: none;
+}
+
+.oidc-test-result-item .dashicons {
+    flex-shrink: 0;
+}
+
+.oidc-test-result-item.success .dashicons {
+    color: #00a32a;
+}
+
+.oidc-test-result-item.error .dashicons {
+    color: #d63638;
+}
+
+.oidc-test-result-item.warning .dashicons {
+    color: #dba617;
+}
+
+.oidc-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.oidc-status-badge.active {
+    background: #00a32a15;
+    color: #00a32a;
+}
+
+.oidc-status-badge.inactive {
+    background: #dba61715;
+    color: #dba617;
+}
+
+.oidc-status-badge .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.oidc-info-box {
+    background: #f0f6fc;
+    border-left: 4px solid #2271b1;
+    padding: 12px;
+    margin: 15px 0;
+}
+
+.oidc-info-box .dashicons {
+    color: #2271b1;
+    margin-right: 8px;
+}
+
+.oidc-redirect-uris {
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    padding: 12px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.oidc-redirect-uris code {
+    background: #fff;
+    padding: 4px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    margin: 4px 0;
+}
+
+.oidc-collapsible-header {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.oidc-collapsible-header:hover {
+    background: #f0f0f1;
+}
+
+.oidc-collapsible-toggle {
+    transition: transform 0.2s ease;
+}
+
+.oidc-collapsible-toggle.open {
+    transform: rotate(180deg);
+}
+
+.oidc-collapsible-body {
+    display: none;
+}
+
+.oidc-collapsible-body.open {
+    display: block;
+}
+
+.oidc-status-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.oidc-status-table th {
+    background: #f6f7f7;
+    text-align: left;
+    padding: 12px;
+    font-weight: 600;
+    border-bottom: 2px solid #c3c4c7;
+}
+
+.oidc-status-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.oidc-status-table tr:last-child td {
+    border-bottom: none;
+}
+
+.oidc-status-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.oidc-status-icon.success {
+    color: #00a32a;
+}
+
+.oidc-status-icon.error {
+    color: #d63638;
+}
+
+.oidc-status-icon.warning {
+    color: #dba617;
+}
